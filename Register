@@ -12,6 +12,7 @@ public class IRegister {
     public String userName	{set;get;}
     public String password	{set;get;}
     public IRegister(){
+        select userName__c form IRegister__c;
         //select userName__c, password__C from IRegister__c
     }
     public void register(){
