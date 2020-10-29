@@ -1,0 +1,104 @@
+1-Apex Class Register.apxc
+
+public class IRegister {
+    public IRegister__c re	{set;get;}
+    public String firstName	{set;get;}
+    public String lastName	{set;get;}
+    public Date dob			{set;get;}
+    public String email		{set;get;}
+    public String phone		{set;get;}
+    public String address	{set;get;}
+    public Integer pinCode	{set;get;}
+    public String userName	{set;get;}
+    public String password	{set;get;}
+    public IRegister(){
+        //select userName__c, password__C from IRegister__c
+    }
+    public void register(){
+        re=new IRegister__c();
+        re.First_Name__c=firstName;
+        re.Last_Name__c=lastName;        
+        re.DOB__c=dob;
+        re.Email__c=email;
+        re.Phone__c=phone;
+        re.Address__c=address;
+        re.Pin_Code__c=pinCode;
+        re.User_Name__c=userName;
+        re.Password__c=password;
+        insert re;
+        Apexpages.Message msg=new Apexpages.Message(Apexpages.Severity.CONFIRM,'Registration Successful');
+        Apexpages.addMessage(msg);
+        cancel();
+    }    
+    
+    public void cancel(){
+        firstName=null;
+        lastName=null;
+        dob=null;
+        email=null;
+        phone=null;
+        Address=null;
+        pinCode=null;
+        userName=null;
+        password=null;
+    }
+}
+
+1-VF Page Register.vfp
+
+<apex:page controller="IRegister">
+    <apex:sectionHeader title="IMS App" subtitle="Register" />
+    <apex:pageMessages />
+    <apex:form id="f">
+    	<apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+            	<apex:commandButton value="Register" action="{!register}"  />
+                <apex:commandButton value="Cancel" action="{!cancel}"  />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Registration Detial" columns="1" collapsible="false">
+            	<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Name" />
+                    <apex:inputText required="true" value="{!firstName}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Name" />
+                    <apex:inputText value="{!lastName}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="DOB" />
+                    <apex:inputText value="{!dob}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Email" />
+                    <apex:inputText value="{!email}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Phone" />
+                    <apex:inputText maxlength="10" value="{!phone}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Address" />
+                    <apex:inputTextarea value="{!address}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Pin Code" />
+                    <apex:inputText maxlength="6" value="{!pinCode}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Login Details" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="User Name" />
+                    <apex:inputText required="true" value="{!userName}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Password" />
+                    <apex:inputSecret required="true" maxlength="10" value="{!password}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Confirm Password" />
+                    <apex:inputSecret maxlength="10" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
